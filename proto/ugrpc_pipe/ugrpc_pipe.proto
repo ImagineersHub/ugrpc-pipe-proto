@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package ugrpc_pipe;
+
+option csharp_namespace = "UGrpc.Pipeline.GrpcPipe.V1";
+
+service UGrpcPipe {
+    rpc CommandParser(CommandParserReq) returns (GenericResp);
+}
+
+message Status{
+    enum StatusCode{
+        SUCCESS = 0;
+        ERROR = 1;
+    }
+
+    StatusCode code =1;
+    string message =2;
+}
+
+message ProjectInfoResp{
+    enum PlatformCode{
+        unknown =0;
+        unity =1;
+        unreal =2;
+    }
+
+    // represent the return status
+    optional Status status = 1;
+    // represent the flatform code
+    PlatformCode platform = 2;
+    // represent the path of content assets
+    string dataPath = 3;
+    // represent the project root path
+    string projectRoot = 4;
+}
+
+message CommandParserReq{
+    string payload =1;
+}
+
+message GenericResp{
+
+    Status status=1;
+
+    google.protobuf.Any payload=2;
+}
