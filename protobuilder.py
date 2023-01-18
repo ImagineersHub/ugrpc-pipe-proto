@@ -31,7 +31,6 @@ def resolve_grpc_import_error(export_dir):
     name_pattern = '_grpc'
     # looking for the grpc script files from the specified path
     matched = get_files([export_dir], ext_patterns=['py'])
-    return
     # iterate all the grpc script files
     for grpc_file in matched:
         file_name, _ = os.path.splitext(os.path.basename(grpc_file))
@@ -101,10 +100,6 @@ class ProtoBuilder:
 
             if output_logs:
                 logger.debug(output_logs.decode("utf-8"))
-
-        # resolve the 'import' errors of the generated python scripts
-        # if Lang[lang] == Lang.py:
-        #     resolve_grpc_import_error(os.path.join(output, os.path.basename(source)))
 
 
 def main():
