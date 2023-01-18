@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Exclude Logs
+/compipe_logs/
+
+/batch_script/
