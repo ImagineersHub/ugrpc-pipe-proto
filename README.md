@@ -13,3 +13,8 @@ https://nuget.info/packages/Grpc.Tools
 
 python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="<UnityProject>/Assets/Editor/Pipeline/gRPC/Protobuf"
 python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="<Python Pipeline Project>/unity-grpc-build-proto-pipe"
+
+Example:
+
+python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="P:/Dev/SyngularXR/Syngar/Assets/Plugins/ugrpc/Editor/Protobuf"
+python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="D:/Dev/Syngar_Pipeline/unity-grpc-build-proto-pipe"
