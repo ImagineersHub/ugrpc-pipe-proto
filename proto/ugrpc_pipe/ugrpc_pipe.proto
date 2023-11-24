@@ -10,6 +10,13 @@ service UGrpcPipe {
     rpc CommandParser(CommandParserReq) returns (GenericResp);
 }
 
+// generic message types
+
+message FloatArrayRep{
+    repeated float values =1;
+}
+
+
 message Status{
     enum StatusCode{
         SUCCESS = 0;
