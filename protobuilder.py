@@ -12,7 +12,8 @@ from compipe.utils.logging import logger
 
 DIR = dirname(abspath(__file__))
 
-GRPC_PLUGIN_TOOL = os.path.join(DIR, 'Tools', sys.platform, 'grpc_csharp_plugin')
+GRPC_PLUGIN_TOOL = os.path.join(
+    DIR, 'Tools', sys.platform, 'grpc_csharp_plugin')
 PROTOC_TOOL = os.path.join(DIR, 'Tools', sys.platform, 'protoc')
 
 # add 'exe' executable extension for win32 platform
@@ -95,11 +96,22 @@ class ProtoBuilder:
             logger.debug(f'Build proto ({Lang[lang].value}): {proto_file}')
             print(' '.join([*param, proto_file]))
             # start to trigger the process of building proto code for a specific language
-            process = subprocess.Popen(' '.join([*param, proto_file]), stdout=subprocess.PIPE)
+            process = subprocess.Popen(
+                ' '.join([*param, proto_file]), stdout=subprocess.PIPE)
             output_logs, _ = process.communicate()
 
             if output_logs:
                 logger.debug(output_logs.decode("utf-8"))
+
+    def batch_export(self):
+        # --lang=cs --source="proto/ugrpc_pipe" --output="P:/ImagineersHub/epochdot-grpc-unity/Assets/Plugins/UGrpc/Runtime/Protobuf"
+        self.generate_proto_code(lang='cs',
+                                 source='proto/ugrpc_pipe',
+                                 output='P:/ImagineersHub/epochdot-grpc-unity/Assets/Plugins/UGrpc/Runtime/Protobuf')
+        # --lang=py --source="proto/ugrpc_pipe" --output="P:/Syngar_Pipeline/unity-grpc-build-proto-pipe"
+        self.generate_proto_code(lang='py',
+                                 source='proto/ugrpc_pipe',
+                                 output='P:/Syngar_Pipeline/unity-grpc-build-proto-pipe')
 
 
 def main():

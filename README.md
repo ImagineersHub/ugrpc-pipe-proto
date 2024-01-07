@@ -11,6 +11,11 @@ https://nuget.info/packages/Grpc.Tools
 
 ### Build Protobuf
 
+#### Batch export (Recommended):
+`python protobuilder.py batch_export`
+
+#### Export Commands:
+
 python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="<UnityProject>/Assets/Editor/Pipeline/gRPC/Protobuf"
 python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="<Python Pipeline Project>/unity-grpc-build-proto-pipe"
 

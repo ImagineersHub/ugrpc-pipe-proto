@@ -1,2 +1,1 @@
-python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="P:/ImagineersHub/epochdot-grpc-unity/Assets/Plugins/UGrpc/Runtime/Protobuf"
-python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="P:/Syngar_Pipeline/unity-grpc-build-proto-pipe"
+python protobuilder.py batch_export
