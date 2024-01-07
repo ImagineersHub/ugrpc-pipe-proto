@@ -131,5 +131,3 @@ dmypy.json
 
 # Exclude Logs
 /compipe_logs/
-
-/batch_script/

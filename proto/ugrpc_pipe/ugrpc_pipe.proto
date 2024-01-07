@@ -16,6 +16,9 @@ message FloatArrayRep{
     repeated float values =1;
 }
 
+message StringArrayRep{
+    repeated string values =1;
+}
 
 message Status{
     enum StatusCode{
