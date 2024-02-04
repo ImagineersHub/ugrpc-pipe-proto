@@ -8,6 +8,7 @@ option csharp_namespace = "UGrpc.Pipeline.GrpcPipe.V1";
 
 service UGrpcPipe {
     rpc CommandParser(CommandParserReq) returns (GenericResp);
+    rpc RenderImage (RenderRequest) returns (RenderReply) {}
 }
 
 // generic message types
@@ -18,6 +19,10 @@ message FloatArrayRep{
 
 message StringArrayRep{
     repeated string values =1;
+}
+
+message IntArrayRep{
+    repeated int32 values =1;
 }
 
 message Status{
@@ -56,4 +61,21 @@ message GenericResp{
     Status status=1;
 
     google.protobuf.Any payload=2;
+}
+
+message RenderRequest {
+    
+    string scene_name = 1;
+    string output_path = 2;
+    repeated float camera_transformation = 3;
+    float camera_fov = 4;
+    repeated int32 camera_resolution = 5;
+    string modality = 6;
+    float clip_range = 7;
+    string vdb_path = 8;
+    repeated float proxy_model_transformation = 9;
+}
+
+message RenderReply {
+    bytes image_data = 1;
 }

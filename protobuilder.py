@@ -111,7 +111,7 @@ class ProtoBuilder:
         # --lang=py --source="proto/ugrpc_pipe" --output="P:/Syngar_Pipeline/unity-grpc-build-proto-pipe"
         self.generate_proto_code(lang='py',
                                  source='proto/ugrpc_pipe',
-                                 output='P:/Syngar_Pipeline/unity-grpc-build-proto-pipe')
+                                 output='P:/ImagineersHub/ugrpc-pipe-python')
 
 
 def main():

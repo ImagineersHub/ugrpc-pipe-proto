@@ -21,5 +21,6 @@ python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe"
 
 Example:
 
-python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="P:/Dev/SyngularXR/Syngar/Assets/Plugins/ugrpc/Editor/Protobuf"
-python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="D:/Dev/Syngar_Pipeline/unity-grpc-build-proto-pipe"
+python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="P:\ImagineersHub\epochdot-grpc-unity\Assets\Plugins\UGrpc\Runtime\Protobuf"
+
+python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="P:\ImagineersHub\ugrpc-pipe-python"
