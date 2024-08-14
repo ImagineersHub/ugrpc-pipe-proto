@@ -9,6 +9,7 @@ option csharp_namespace = "UGrpc.Pipeline.GrpcPipe.V1";
 service UGrpcPipe {
     rpc CommandParser(CommandParserReq) returns (GenericResp);
     rpc RenderImage (RenderRequest) returns (RenderReply) {}
+    rpc PointCloudCapture(PointCloudCaptureReq) returns (PointCloudCaptureResp) {}
 }
 
 // generic message types
@@ -86,4 +87,15 @@ message RenderRequest {
 
 message RenderReply {
     bytes image_data = 1;
+}
+
+message PointCloudCaptureReq {
+    repeated float camera_transformation = 1;
+    repeated float proxy_model_transformation = 2;
+    repeated float target_point_cloud = 3;
+    string proxy_model_name = 4;
+}
+
+message PointCloudCaptureResp {
+    repeated float transform_matrix = 1;
 }
