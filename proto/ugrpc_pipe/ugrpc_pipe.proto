@@ -51,6 +51,8 @@ message ProjectInfoResp{
     string dataPath = 3;
     // represent the project root path
     string projectRoot = 4;
+    // represent the build version
+    string buildVersion = 5;
 }
 
 message CommandParserReq{
