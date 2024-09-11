@@ -5,5 +5,5 @@ six==1.16
 toml==0.10.2
 wrapt==1.13.3
 fire==0.4.0
-betterproto[compiler]>=2.0.*
+betterproto[compiler]==2.0.0b7
 compipe

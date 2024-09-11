@@ -8,6 +8,8 @@ option csharp_namespace = "UGrpc.Pipeline.GrpcPipe.V1";
 
 service UGrpcPipe {
     rpc CommandParser(CommandParserReq) returns (GenericResp);
+    rpc RenderImageBytes (RenderRequest) returns (RenderBytesReply) {}
+    rpc RouteImageBytes (RenderBytesReply) returns (GenericResp) {}
     rpc RenderImage (RenderRequest) returns (RenderReply) {}
     rpc PointCloudCapture(PointCloudCaptureReq) returns (PointCloudCaptureResp) {}
 }
@@ -74,28 +76,77 @@ message RenderRequest {
         HIGH = 2;
     }
 
+    enum CameraMode{
+        MAIN = 0;
+        STEREO_LEFT = 1;
+        STEREO_RIGHT = 2;
+    }
+
+    enum RenderMode{
+        Default =0;
+        Single_Modality =1; // render image for a single modality of dicom widget 
+        Sphere_clipping =2; // render image when activating clipping sphere
+        Modality_clipping =3; // render image when activating dicom viewer manipulator
+    }
+
     string scene_name = 1;
     string output_path = 2;
     repeated float camera_transformation = 3;
     float camera_fov = 4;
     repeated int32 camera_resolution = 5;
-    string modality = 6;
+    string render_pattern = 6; // apply color pattern to the color ramp node of vdb material 
     float clip_range = 7;
     string vdb_path = 8;
     repeated float proxy_model_transformation = 9;
     float spacing = 10;
     Quality quality = 11;
+    string active_camera = 12;
+    CameraMode camera_mode = 13;
+    
+    // below values represent the clipping distance for each axis
+    // It's aimed to render cinematic image when activating dicom viewer manipulator
+    float clip_axial = 14;
+    float clip_sagittal = 15;
+    float clip_coronal = 16;
+
+    repeated float volume_dimension = 17;
+
+    RenderMode render_mode = 18;
+    repeated float clipping_sphere_position = 19;
+    string target = 20; // represents the IP address of the target machine
+
 }
 
-message RenderReply {
-    bytes image_data = 1;
+message ImageMetadata {
+    int32 width = 1;
+    int32 height = 2;
+    string format = 3; // e.g., "png", "jpeg"
+}
+
+message RenderBytesReply {
+    bytes main_image_data = 1;
+    bytes stereo_left_image_data = 2;
+    bytes stereo_right_image_data = 3;
+
+    Status status = 4; // e.g., "success", "partial_failure", "error"
+    RenderRequest request = 5;
+}
+
+message RenderReply{
+    string main_image_path = 1;
+    string stereo_left_image_path = 2;
+    string stereo_right_image_path = 3;
+
+    Status status = 4; // e.g., "success", "partial_failure", "error"
+    RenderRequest request = 5;
 }
 
 message PointCloudCaptureReq {
     repeated float camera_transformation = 1;
     repeated float proxy_model_transformation = 2;
     repeated float target_point_cloud = 3;
-    string proxy_model_name = 4;
+    repeated float source_point_cloud = 4;
+    string proxy_model_name = 5;
 }
 
 message PointCloudCaptureResp {
