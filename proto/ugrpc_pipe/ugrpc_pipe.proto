@@ -11,7 +11,8 @@ service UGrpcPipe {
     rpc RenderImageBytes (RenderRequest) returns (RenderBytesReply) {}
     rpc RouteImageBytes (RenderBytesReply) returns (GenericResp) {}
     rpc RenderImage (RenderRequest) returns (RenderReply) {}
-    rpc PointCloudCapture(PointCloudCaptureReq) returns (PointCloudCaptureResp) {}
+    rpc PointCloudCapture(PointCloudCaptureReq) returns (RegistrationResp) {}
+    rpc Converge3DRegistration(Converge3DRegistrationReq) returns (RegistrationResp) {}
 }
 
 // generic message types
@@ -114,6 +115,9 @@ message RenderRequest {
     RenderMode render_mode = 18;
     repeated float clipping_sphere_position = 19;
     string target = 20; // represents the IP address of the target machine
+    float camera_distance = 21; // represents the distance between camera and the proxy model
+
+    bool is_enhance_image=22; // represents whether to enhance (super resolution and denoising) the image through AI or not
 
 }
 
@@ -130,6 +134,14 @@ message RenderBytesReply {
 
     Status status = 4; // e.g., "success", "partial_failure", "error"
     RenderRequest request = 5;
+
+    float ipd_offset = 6;
+    // represents the canvas material ipd offset
+    // IPD (Interpupillary Distance):
+    // This is the distance between the centers of the pupils of the two eyes.
+    // In VR/AR, it's crucial for creating a proper stereoscopic effect and 
+    // comfortable viewing experience.
+
 }
 
 message RenderReply{
@@ -149,6 +161,22 @@ message PointCloudCaptureReq {
     string proxy_model_name = 5;
 }
 
-message PointCloudCaptureResp {
+message Converge3DRegistrationReq {
+    // Scan point cloud data from the models by giving ray casting direction
+    // and radius region
+    int32 case_id = 1; // represents the case id for fetching case content
+    string case_guid = 2; // represents the case guid for fetching case content
+    string target = 3; // represents the IP address of the target machine
+    repeated string models = 4;
+    repeated float center_point_position = 5; // represents the center point of the region
+    repeated float camera_position = 6; // represents the camera position
+    float radius = 7; // represents the radius region
+    repeated float model_transformation = 8; // represents the model initial transformation
+    repeated float target_points = 9; // represents the target points
+    repeated int32 chunk_sizes = 10; // target_points contains might contains multiple chunks, use this property to specify the length for each chunk
+}
+
+message RegistrationResp {
     repeated float transform_matrix = 1;
+    bool is_success = 2;
 }
