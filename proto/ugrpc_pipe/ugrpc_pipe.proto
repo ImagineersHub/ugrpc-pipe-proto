@@ -13,6 +13,7 @@ service UGrpcPipe {
     rpc RenderImage (RenderRequest) returns (RenderReply) {}
     rpc PointCloudCapture(PointCloudCaptureReq) returns (RegistrationResp) {}
     rpc Converge3DRegistration(Converge3DRegistrationReq) returns (RegistrationResp) {}
+    rpc HealthCheck(HealthCheckRequest) returns (Status) {}
 }
 
 // generic message types
@@ -56,6 +57,10 @@ message ProjectInfoResp{
     string projectRoot = 4;
     // represent the build version
     string buildVersion = 5;
+}
+
+message HealthCheckRequest{
+    string message =1;
 }
 
 message CommandParserReq{
@@ -119,6 +124,9 @@ message RenderRequest {
 
     bool is_enhance_image=22; // represents whether to enhance (super resolution and denoising) the image through AI or not
 
+    // represents whether to render the image instantly or not. If rendering with
+    // the same color pattern, it would perform instant rendering
+    bool is_instant_render=23; 
 }
 
 message ImageMetadata {
@@ -136,6 +144,8 @@ message RenderBytesReply {
     RenderRequest request = 5;
 
     float ipd_offset = 6;
+    float width = 7; // represents texture resolution width
+    float height = 8; // represents texture resolution height
     // represents the canvas material ipd offset
     // IPD (Interpupillary Distance):
     // This is the distance between the centers of the pupils of the two eyes.
