@@ -14,6 +14,8 @@ service UGrpcPipe {
     rpc PointCloudCapture(PointCloudCaptureReq) returns (RegistrationResp) {}
     rpc Converge3DRegistration(Converge3DRegistrationReq) returns (RegistrationResp) {}
     rpc HealthCheck(HealthCheckRequest) returns (Status) {}
+    rpc SubscribeTrackingSensorTransform(TrackingSensorClientReq) returns (stream TrackingSensorTransformResp) {}
+    rpc UnsubscribeTrackingSensorTransform(TrackingSensorClientReq) returns (GenericResp) {}
 }
 
 // generic message types
@@ -120,13 +122,14 @@ message RenderRequest {
     RenderMode render_mode = 18;
     repeated float clipping_sphere_position = 19;
     string target = 20; // represents the IP address of the target machine
-    float camera_distance = 21; // represents the distance between camera and the proxy model
+    string room_name = 21; // represents the room name, it is used to send data to the users in the same room
+    float camera_distance = 22; // represents the distance between camera and the proxy model
 
-    bool is_enhance_image=22; // represents whether to enhance (super resolution and denoising) the image through AI or not
+    bool is_enhance_image=23; // represents whether to enhance (super resolution and denoising) the image through AI or not
 
     // represents whether to render the image instantly or not. If rendering with
     // the same color pattern, it would perform instant rendering
-    bool is_instant_render=23; 
+    bool is_instant_render=24; 
 }
 
 message ImageMetadata {
@@ -189,4 +192,17 @@ message Converge3DRegistrationReq {
 message RegistrationResp {
     repeated float transform_matrix = 1;
     bool is_success = 2;
+}
+
+message TrackingSensorClientReq {
+    string target = 1;
+}
+
+message PositioningSensorTransform {
+    repeated float translation = 1;
+    repeated float orientation = 2;
+}
+
+message TrackingSensorTransformResp {
+    repeated PositioningSensorTransform transform = 1;
 }
