@@ -27,4 +27,4 @@ Example:
 python protobuilder.py generate_proto_code --lang=cs --source="proto/ugrpc_pipe" --output="P:\ImagineersHub\epochdot-grpc-unity\Assets\Plugins\UGrpc\Runtime\Protobuf"
 
 python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="P:\ImagineersHub\ugrpc-pipe-python"
-python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="P:\Project\syngar-amfitrack-server\protobuf"
+python protobuilder.py generate_proto_code --lang=py --source="proto/ugrpc_pipe" --output="P:\Project\syngar-amfitrack-server\src\protobuf"
