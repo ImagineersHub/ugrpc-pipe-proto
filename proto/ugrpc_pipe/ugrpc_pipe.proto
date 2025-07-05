@@ -199,8 +199,9 @@ message TrackingSensorClientReq {
 }
 
 message PositioningSensorTransform {
-    repeated float translation = 1;
-    repeated float orientation = 2;
+    int32 id = 1;
+    repeated float translation = 2;
+    repeated float orientation = 3;
 }
 
 message TrackingSensorTransformResp {
